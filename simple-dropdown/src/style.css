@@ -1,0 +1,46 @@
+/* Container styling */
+.dropdown-container {
+  max-width: 400px;
+  margin: 60px auto;
+  padding: 30px;
+  background-color: #f0f8ff;
+  border: 2px solid #0077b6;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Title styling */
+.dropdown-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #023e8a;
+}
+
+/* Select box styling */
+.dropdown-select {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border: 2px solid #0077b6;
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: #03045e;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.dropdown-select:focus {
+  outline: none;
+  border-color: #00b4d8;
+}
+
+/* Message styling */
+.dropdown-message {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #007f5f;
+  background-color: #d8f3dc;
+  padding: 10px;
+  border-radius: 8px;
+}
