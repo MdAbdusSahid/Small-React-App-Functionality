@@ -1,0 +1,76 @@
+import React, { useState, useEffect } from "react";
+import Confetti from "js-confetti";
+import "./style.css";
+
+const App = () => {
+  const [users, setUsers] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [search, setSearch] = useState("");
+  const [debounceSearch, setDebouncedSearch] = useState("");
+
+  useEffect(() => {
+    const handleUsers = setTimeout(() => {
+      setDebouncedSearch(search);
+    }, 700);
+    return () => {
+      clearTimeout(handleUsers);
+    };
+  }, [search]);
+
+  const searchedUser =
+    debounceSearch === ""
+      ? []
+      : users.filter((u) =>
+          u.name.toLowerCase().includes(debounceSearch.toLowerCase()),
+        );
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "https://jsonplaceholder.typicode.com/users",
+        );
+        if (!response.ok) throw new Error(response.status);
+        const data = await response.json();
+        setUsers(data);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  return (
+    <div className="app-container">
+      <h2 className="title">Search Users from List</h2>
+
+      <input
+        className="search-input"
+        type="text"
+        placeholder="Type a name..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
+
+      {isLoading && <p className="status">Loading...</p>}
+      {error && (
+        <p className="status error">Data fetch failed with message: {error}</p>
+      )}
+
+      {!isLoading && !error && (
+        <ul className="user-list">
+          {searchedUser.length > 0 ? (
+            searchedUser.map((user, index) => <li key={index}>{user.name}</li>)
+          ) : debounceSearch === "" ? null : (
+            <li className="not-found">User not found</li>
+          )}
+        </ul>
+      )}
+    </div>
+  );
+};
+
+export default App;
