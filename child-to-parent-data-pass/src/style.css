@@ -1,0 +1,23 @@
+.container {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.message {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.btn {
+  padding: 10px 20px;
+  font-size: 18px;
+  background-color: #61dafb;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #21a1f1;
+}
