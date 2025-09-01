@@ -25,22 +25,26 @@ const App = () => {
           u.name.toLowerCase().includes(debounceSearch.toLowerCase()),
         );
 
-  useEffect(() => {
+ useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
     const fetchData = async () => {
       try {
         const response = await fetch(
           "https://jsonplaceholder.typicode.com/users",
+          { signal: signal }
         );
         if (!response.ok) throw new Error(response.status);
         const data = await response.json();
         setUsers(data);
       } catch (error) {
-        setError(error.message);
+        if (error.name !== "AbortError") setIsError(true);
       } finally {
         setIsLoading(false);
       }
     };
     fetchData();
+    return () => controller.abort;
   }, []);
 
   return (
