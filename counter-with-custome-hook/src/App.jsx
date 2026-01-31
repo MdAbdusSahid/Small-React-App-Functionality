@@ -1,11 +1,23 @@
 import React from "react";
 import useCounter from "./useCounter";
-import "./style.css";
+import "./style.css"
+import usePrevious from "./usePrevious";
 
 const App = () => {
   const { count, increment, decrement, reset } = useCounter(0);
+  const [count, setCount] = useState(0);
 
   return (
+     <div style={{ padding: "20px", fontFamily: "sans-serif" }}>
+      <h2>Current count: {count}</h2>
+      {/* On the very first render, prevCount will be undefined */}
+      <h3>
+        Previous count: {prevCount === undefined ? "undefined" : prevCount}
+      </h3>
+
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+      <button onClick={() => setCount(count - 1)}>Decrement</button>
+    </div>
     <div
       style={{
         display: "flex",
